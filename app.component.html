@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar-white myNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/event image.png" alt="" class="d-inline-block align-text-top width-5 height-5">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" *ngIf="loggedUserData.">
+                    <a class="nav-link active" aria-current="page" href="jobs.html">Create Event</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex" *ngIf="!isUserLoggedin">
+                <button class="btn btn-outline-primary round-button mx-2" type="button"
+                    (click)="openLogin()">Login</button>
+                <button class="btn btn-success round-button" type="button">Register</button>
+            </form>
+            <form class="d-flex" *ngIf="isUserLoggedin">
+                {{loggedUserData.ContactNo}}
+                <button class="btn btn-success round-button" (click)="onLogoff()" type="button">Logoff</button>
+
+            </form>
+        </div>
+    </div>
+</nav>
+<router-outlet></router-outlet>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="login-container">
+                    <form *ngIf="isLoginView">
+                        <h1>Login</h1>
+                        <div class="form-group">
+                            <label for="loginUsername">Contact No</label>
+                            <input type="text" id="loginUsername" [(ngModel)]="loginObj.ContactNo" name="username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" [(ngModel)]="loginObj.Password" name="password" required>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
+                        <p>Don't have an account? <a href="#" (click)="isLoginView=false">Sign up here</a></p>
+                    </form>
+
+                    <form *ngIf="!isLoginView">
+                        <h1>Register</h1>
+                        <div class="form-group">
+                            <label for="registerName">Name</label>
+                            <input type="text" id="registerName" [(ngModel)]="registerObj.Name" name="Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="text" id="registerEmail" [(ngModel)]="registerObj.Email" name="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" [(ngModel)]="registerObj.Password" name="Password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerContactNo">Contact No</label>
+                            <input type="text" id="registerContactNo" [(ngModel)]="registerObj.ContactNo" name="ContactNo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerRole">What are You</label>
+                            <select [(ngModel)]="registerObj.Role" name="Role">
+                                <option value="">Select Your Role</option>
+                                <option value="Event Planner">Event Planner</option>
+                                <option value="Customer">Customer</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn btn-success" (click)="onRegister()">Register</button>
+                        <p>Already have an account? <a href="#" (click)="isLoginView=true">Login here</a></p>
+                    </form>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closeModel()" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
